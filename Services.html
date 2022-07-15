@@ -3,17 +3,95 @@
     <head>
         <title>Service Page</title>
         <meta charset="UTF-8">
+        <script>
+           
+
+            function Roi(){
+                var x = document.getElementById("t2");
+                var res = x.selectedIndex;
+                if(x.options[res].text === ""){
+                    alert("Select appropriate option")
+                }
+                else
+                {
+                    switch(x.options[res].text){
+                        case 'Home':  document.f1.t4.value = 7;
+                                      break;
+                        case 'Car':   document.f1.t4.value = 9;
+                                      break;
+                        case 'Personal' : document.f1.t4.value = 12;
+                                      break;
+                    }               
+                }
+            }
+
+            function durationCal(){  
+                var x = document.getElementById("t2");
+                var res = x.selectedIndex;
+                switch(x.options[res].text){
+                        case 'Home':  var res2 = document.getElementById("t5");
+                                      res2.setAttribute('max',25);
+                                      break;
+                        case 'Car':   var res2 = document.getElementById("t5");
+                                      res2.setAttribute('max',10);
+                                      break;
+                        case 'Personal' :var res2 = document.getElementById("t5");
+                                        res2.setAttribute('max',5);
+                                        break;
+                    } 
+            }
+
+            function emiCal(p,r,t){
+                var res3 = document.getElementById("t5").getAttribute('max');
+                
+                alert(t);
+                alert(res3);
+               
+                if(t > res3){
+                    alert("Please choose the option according to error");
+                }
+                else{
+                    r = r / (12 * 100);
+                    t = t * 12;
+                    var emi = (p * r * Math.pow(1 + r, t)) / (Math.pow(1 + r, t) - 1);
+                    document.f1.t6.value = emi + 0.000414;
+                }      
+            }
+        </script>
     </head>
     <body>
         <h1>Servies Listed below</h1>
         <hr>
         <ul>
-            <li>Service A</li>
+            <li id="l1" onclick="loans()"><span id="i1">Loans</span></li>
             <li>Service B</li>
             <li>Service C</li>
             <li>Service D</li>
         </ul>
+
+
         <hr>
+        <form name="f1">
+            Applicant name : <input type="text" id="t1" required><br><br>
+            Type : <select name="" id="t2" onchange="Roi()">
+                <option value="None"></option>
+                <option value="Home">Home</option>
+                <option value="Car">Car</option>
+                <option value="Personal">Personal</option>
+            </select> <br>
+            <br>
+            Ammount : <input type="number" id="t3" required min="0"><br>
+            <br>
+            Rate of Interest : <input type="text" id="t4" disabled><br>
+            <br>
+            Duration : <input type="number" id="t5" max="" onchange="durationCal()"><br>
+            <br>
+            Emi : <input type="number" id="t6" disabled><br><br>
+            <input type="button" value="Calculate" onclick="emiCal(t3.value,t4.value,t5.value)">
+            <input type="reset" value="clear">
+        </form>
+
+        <br><br>
         <a href="index.html">Click on link below to go back to welcome page</a>
     </body>
 </html>
